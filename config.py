@@ -175,7 +175,7 @@ if __name__ == "__main__":
     with open("waitingList.txt", "r") as file:
         dirlist = file.read().split("\n")[:-1]
 
-    for i in range(62,len(dirlist)):
+    for i in range(0,len(dirlist)):
         item = dirlist[i]
         print(str(i))
         copyFile(item)
