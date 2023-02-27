@@ -1,0 +1,19 @@
+const {expect} = require("chai");
+const {loadFixture} = require("@nomicfoundation/hardhat-network-helpers");
+const web3 = require("web3");
+
+describe("LinkToken",function(){
+	async function deployOneYearLockFixture(){
+		const _Contract = await ethers.getContractFactory("LinkToken");
+		const [account0,account1,account2] = await ethers.getSigners();
+		const _contract = await _Contract.deploy();
+		return {_contract,account0,account1,account2};
+	}
+
+	describe("transferAndCall",function(){
+		it("testing transferAndCall",async function(){
+			const {_contract,account0,account1,account2} = await loadFixture(deployOneYearLockFixture);
+			await _contract.connect(account0).transferAndCall("0x3feB1e09b4bb0E7f0387CeE092a52e85797ab889","0x1786f5bc91c7880000","0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000012ce8c1d338958223d308020313f166ec99d4201e5677a986564c37ed2587d2a471d662935046f2b3d4fdf50b3492530ab46e48fda529f8d22c04757b8384d7511b003b4d363c7ddd842f9d0617166d6ca8e984ebebb5efe6f62cb96303197a7272354f6f30b48d2e91d1c34a60852662bfe4557206eddb68a09fed4d84042366fe4da31a558e58fd90af36d6187c794a53ebb7789e6803274e31f15a19444ee6d150f2d863e106865ba6426202e96d463715571569d42f862b5de4ed9ecd59607bc7e8622b4f1a03c6fa95ddda3911e3f6bac2e58a40912bd7ac2ec0243daeb78b076007a25f6259575b0f22222d582074a171064f0814ba6318c6d069183911829658576a4d83dfeccf1ffc706925109a61d3bfc5e64c6a21e87838a25137f9253e29fbb2f19bcf4d187eab88cd969e80c5af28103b3610ff4b7d107a4eb74d590f53452635d69c754b4c4144eb64051ef4a04491272337598996fba92aacdc3df9b06a62dea907f2e15ee0844b08db0557df1ba7e4e4930a83397c46925aa0a2fa3d7b90edf277de36621688b842dd19f91c364797fe614dafe02b51a6b7c8bd1a04107e25db091f89e916b1a22e0d921d7256e7d4db652c85f6d1355097cc92bdc2e5d0de5e8d944dbbc5984072ab38916ec8b667b1e08eb21b0cfec3d4f8ec485d7c4b903b7ceb21e3a17615184e85fbdcb667ffefbeaa71505771816753994ee9926fac744c3a88137188b207ff7b82efa282c9b69f2c206a863cf77810382fc15a13cc3279756a24d09b2cc8ed69479e69e82fceb06c7e858434f54ece8");
+		});
+	});
+});

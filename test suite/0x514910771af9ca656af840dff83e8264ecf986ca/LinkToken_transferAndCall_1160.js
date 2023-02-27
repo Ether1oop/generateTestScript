@@ -1,0 +1,19 @@
+const {expect} = require("chai");
+const {loadFixture} = require("@nomicfoundation/hardhat-network-helpers");
+const web3 = require("web3");
+
+describe("LinkToken",function(){
+	async function deployOneYearLockFixture(){
+		const _Contract = await ethers.getContractFactory("LinkToken");
+		const [account0,account1,account2] = await ethers.getSigners();
+		const _contract = await _Contract.deploy();
+		return {_contract,account0,account1,account2};
+	}
+
+	describe("transferAndCall",function(){
+		it("testing transferAndCall",async function(){
+			const {_contract,account0,account1,account2} = await loadFixture(deployOneYearLockFixture);
+			await _contract.connect(account0).transferAndCall("0x3feB1e09b4bb0E7f0387CeE092a52e85797ab889","0x011f95aa10e7c7440000","0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000011494fdf19e7408c6f186d8896ed3f12db60ef4f2252db15a27d8aad5fb754b0a9602682daf068f12af99d74c2a716d2015de0de0a1398c81e34f726480773084d42e25df851bdcf803d388732e01e6623e8dce00a0bf38aef6af592aaf9512f5870b41ded9d7333b842f62d85d9928f35622c24e247575111f3cfe24fd51ff44d74af78456a13663713d42f3fa22fd900025f7f743757c7711cfd67ae255da15e5b74245a68e7da0bdba6cdafad9beb075f12fde3778eea68c76a1456c993182b5fae075dfa1f989da17a68c8ff55aaa32f364679b2bd67db1865151a10b6e00a7405f3636319d198873f372a8e554ce2d479801bb1da8bb241a3d4039edbf37838b5c9336a7bc5de27eb5ada8c9e48288e96f27961ebcde531be172b5d388c0a18299105ac1d7b4023bc692f4ddd77f3688fa17dc373dd91352921cb469a743bc6ae9be7a43e19e52a547cab9639bf9613e4e517611191ae218a9e8ba75fe6a40a1578c56de09ad7e340992ce8eb55c77f06f012fbf8253a2131f56f7671e77201bf3e4275c8af532f9645e0ca7ea26ec7859005383cd3d10309e43156f6ea6e8fa34742e89ce45a3182aeb45d56a60b57244d0c31d5c50725341113e6e2739432b0589380d3994681ce4fa258d28ffd0671e0a283694c7560927029e566591517559309d370792985a4d8cff68f325f8bc0d3937cbe88493fd4fea880e1ac9082fc15a13cc3279756a24d09b2cc8ed69479e69e82fceb06c7e858434f54ece8");
+		});
+	});
+});
